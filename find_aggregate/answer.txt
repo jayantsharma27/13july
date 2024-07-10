@@ -1,0 +1,137 @@
+01.db.users.find().count() / db.users.countDocuments()
+02.db.users.find({role:"admin"})
+03.db.users.find({role:"customer",username:/Karamchandani/})
+04.db.users.find({username:"Sumanth Rao"})
+05.db.users.find({firstName:/^R/})
+06.db.users.find({skills:"Python"})
+07.db.users.find({$and:[{skills:"Java"},{skills:"Python" }]})
+08.db.users.find({$or:[{firstName:"Aryan"},{lastName:"Gupta"}]})
+09.db.users.find({$and:[{skills:"Java"},{skills:{$ne:"Python"}}]})
+10.db.users.find({lastName:"Sharma",role:"customer"})
+11.db.users.find({skills:{"$size":3}})
+12.db.users.find({$and:[{firstName:/^S/},{role:"admin"}]})
+13.db.users.find({skills:"Java",role:{"$ne":"admin"}})
+14.{role:{$exists:false}}
+15.db.users.find({"skills.3":{$exists:true}})
+16.{role:"customer",skills:{$exists:false}}
+17.db.users.find({useremail:/regexsoftware.com/})
+18.db.users.find({useremail:{$not:/@gmail.com/}})
+19.db.users.find({lastName:{"$ne":"Singh"}})
+20.db.users.find({role:"admin",skills:"Java"})
+21.db.users.find({firstName:"Ananya",role:"customer"})
+22.db.users.find({"skills.0":{$exists:true},role:"admin"})
+23.db.users.find({$and:[{firstName:/^R/},{role:"admin"}]})
+24.db.users.find({lastName:"Patel",role:"customer"})
+25.db.users.find({skills:"Python",role:"admin"})
+26.db.users.find({lastName:{"$ne":"Gupta"},role:"customer"})
+27.db.users.find({$and:[{useremail:/@regexsoftware.com$/},{role:"admin"}]})
+28.db.users.find({skills:"React",role:"customer"})
+29.db.users.find({skills:"SQL",role:"customer"})
+30.db.users.find({"skills.2":{$exists:true},role:"admin"})
+31.db.users.find({$and:[{skills:"SQL"},{skills:"C++"}],role:"customer"})
+32.db.users.find({$and:[{useremail:{$not:/@gmail.com/}},{role:"admin"}]})
+33.db.users.find({$and:[{lastName:/^M/},{role:"customer"}]})
+34.db.users.find({firstName:{"$ne":"Rahul"},role:"admin"})
+35.db.users.find({$and:[{useremail:{$not:/@gmail.com/}},{role:"customer"}]})
+36.db.users.find({$and:[{skills:{$ne:"JavaScript"}},{skills:"Java"},{role:"admin"}]})
+37.db.users.find({firstName:{$ne:"Ananya"},role:"customer"})
+38.db.users.find({$and:[{useremail:/regexsoftware.com/},{role:"admin"}]})
+39.db.users.find({$and:[{skills:{$ne:"CSS"}},{skills:"HTML"},{role:"customer"}]})
+40. db.users.find({$and:[{skills:"JavaScript"},{skills:"Java"},{role:"admin"}]})
+41.[{
+  $group: {
+    _id:null,
+    avgAge:{$avg:"$age"}
+  }
+}]
+42.db.users.find({city:"Jaipur",skills:"Python"})
+43.db.users.find({city:"Delhi",age:{"$gt":26},gender:"Male"})
+44.db.users.find({$or:[{city:"New Delhi"},{city:"Mumbai"}]})
+45.[{
+  $group: {
+    _id: "$lastName",
+    count:{$sum:1}
+  }
+}]
+46. [
+  {
+    $group: {
+      _id: "$city",
+      countofcity:{$sum:1}
+      }
+    }
+  ,
+  {
+    $project: {
+      city:"$_id",
+      countofcity:1,
+      _id:0
+    }
+  }
+]  
+
+47. [
+  {
+    $match: {
+      city:"New Delhi"
+    }
+  },
+  {
+    $count: 'Number of users'
+  }
+]
+
+48. [
+  {
+    $match: {
+      city:"Jaipur",
+      gender:"Female"
+    }
+  },
+  {
+    $count: 'Number of users'
+  }
+]
+
+49. [
+  {
+    $match: {
+       gender:"Male",
+      city:"New Delhi",
+      skills:"Java"
+    }
+  }
+  ,
+{
+  $count: "Number of users"
+}
+]
+50. [
+  {
+    $match: {
+       age:{"$gt":24},
+      city:"Hyderabad",
+      skills:{"$all":["Python","C++"]}
+    }
+  }
+  ,
+{
+  $count: "Number of users"
+}
+]
+
+51. [
+  {
+    $match: {
+       age:{"$gt":24},
+      gender:"Female",
+      city:"Goa",
+      skills:{"$all":["Python","C++"]}
+    }
+  }
+  ,
+{
+  $count: "Number of users"
+}
+]
+
