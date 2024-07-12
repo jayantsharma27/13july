@@ -1,0 +1,568 @@
+1. [{
+    $group: {
+     _id: "$role",
+     avgSal:{$avg:"$salary"}
+    }
+   }]
+
+
+2.[{
+  $group: {
+    _id: "$city",
+    countofusers:{$sum:1}
+  }
+}]
+
+
+3.[{
+  $group: {
+    _id: "$gender",
+    avgAge:{$avg:"$age"}
+  }
+}]
+
+
+4.[{
+  $group: {
+    _id:{role:"$role",city:"$city"},
+    avgSal:{$avg:"$salary"}
+  }
+}]
+
+
+5.[{
+  $group: {
+    _id:{gender:"$gender",city:"$city"},
+    maxSal:{$max:"$salary"}
+  }
+}]
+
+
+6.[{$unwind:"$skills"},{
+  $group: {
+    _id:"$skills",
+    countofusers:{$sum:1}
+  }
+}]
+
+
+7.[{
+  $group: {
+    _id:"$role",
+    minAge:{$min:"$age"}
+  }
+}]
+
+
+8.[{
+  $group: {
+    _id:{city:"$city",gender:"$gender"},
+    avgSal:{$avg:"$salary"}
+  }
+}]
+
+
+9.[{
+  $group: {
+    _id:"$role",
+    city:{$addToSet:"$city"}
+  }
+}]
+
+
+10.[{
+  $group: {
+    _id:"$age",
+    countofusers:{$sum:1}
+  }
+}]
+
+
+11.[{$addFields: {
+  countofskills:{$size:"$skills"} 
+}},
+ {$group: {
+    _id:"$city",
+    avgSkills:{$avg:"$countofskills"}
+  }
+}]
+
+
+12.[
+ {$group: {
+    _id:"$role",
+    maxSal:{$max:"$salary"}
+  }
+}]
+13.[
+ {$group: {
+    _id:"$gender",
+    countofusers:{$sum:1}
+  }
+}]
+
+
+14.[
+ {$group: {
+    _id:"$city",
+    avgAge:{$avg:"$age"}
+  }
+}]
+
+
+15.[
+ {$group: {
+    _id:{role:"$role",gender:"$gender"},
+    avgSal:{$avg:"$salary"}
+  }
+}]
+
+
+16.[{$unwind:"$skills"},
+ {$group: {
+    _id:"$skills",
+    countofusers:{$sum:1}
+  }
+}]
+
+
+17.[
+ {$group: {
+    _id:"$age",
+    maxSal:{$max:"$salary"}
+  }
+}]
+
+
+18.[{$addFields: {
+  countSkills:{$size:"$skills"}
+}},{$match: {
+  countSkills:{$gt:3}
+}},
+ {$group: {
+    _id:"$role",
+   countUsers:{$sum:1}
+  }
+  }
+]
+
+
+19.[{$addFields: {
+  countSkills:{$size:"$skills"}
+}},
+ {$group: {
+    _id:{gender:"$gender",city:"$city"},
+   avgSkills:{$avg:"$countSkills"}
+  }
+  }
+]
+
+
+20.[
+ {$group: {
+    _id:"$role",
+   maxSal:{$max:"$salary"},
+   minSal:{$min:"$salary"}
+  }
+  }
+]
+
+
+1.[
+ {$group: {
+    _id:{role:"$role",city:"$city"},
+   countUsers:{$sum:1}
+  }
+  }
+]
+
+
+2.[
+ {$group: {
+    _id:{role:"$role",gender:"$gender"},
+   totalSalary:{$sum:"$salary"}
+  }
+  }
+]
+
+
+3.[{$match: {
+  salary:{$gt:1000000}
+}},
+ {$group: {
+    _id:"$age",
+   countUsers:{$sum:1}
+  }
+  }
+]
+
+
+4.[{$unwind:"$skills"},
+ {$group: {
+    _id:"$skills",
+   avgSal:{$avg:"$salary"}
+  }
+  }
+]
+
+
+5.[
+ {$group: {
+    _id:{role:"$role",gender:"$gender"},
+   avgAge:{$avg:"$age"}
+  }
+  }
+]
+
+
+6.[{$match: {
+  skills:"Java"
+}},
+ {$group: {
+    _id:"$gender",
+   countUsers:{$sum:1}
+  }
+  }
+]
+
+
+7.[{$addFields: {
+   countSkills:{$size:"$skills"}
+}},
+ {$group: {
+    _id:"$city",
+   maxSkills:{$max:"$countSkills"}
+  }
+  }
+]
+
+
+8.[{$match: {
+  skills:"Python"
+}},
+ {$group: {
+    _id:"$role",
+   countUsers:{$sum:1}
+  }
+  }
+]
+
+
+9.[{$addFields: {
+  countSkills:{$size:"$skills"},
+}},{$match: {
+  countSkills:{$gt:2}
+}},
+ {$group: {
+    _id:{gender:"$gender",city:"$city"},
+   countUsers:{$sum:1}
+  }
+  }
+]
+
+
+10.[{$addFields: {
+  countSkills:{$size:"$skills"},
+}},
+ {$group: {
+    _id:"$age",
+   avgSkills:{$avg:"$countSkills"}
+  }
+  }
+]
+
+
+11.[{$match: {
+  role:"customer",
+  city:"Mumbai"
+}},
+ {$group: {
+    _id:"$role",
+   totalSal:{$sum:"$salary"}
+  }
+  }
+]
+
+
+12.[{$match: {
+  role:"admin"
+}},
+ {$group: {
+    _id:"$city",
+   maxSal:{$max:"$salary"}
+  }
+  }
+]
+
+
+13.[{$match: {
+  salary:{$gt:500000}
+}},
+ {$group: {
+    _id:"$gender",
+   totalUser:{$sum:1}
+  }
+  }
+]
+
+
+14.[{$unwind:"$skills"},
+ {$group: {
+    _id:"$skills",
+   avgAge:{$avg:"$age"}
+  }
+  }
+]
+
+
+15.[{$addFields: {
+  countSkills:{$size:"$skills"}
+}},{$match: {
+  salary:{$gt:700000}
+}},
+ {$group: {
+    _id:"$role",
+   avgSkills:{$avg:"$countSkills"}
+  }
+  }
+]
+
+
+16.[{$match: {
+  skills:"Python"
+}},
+ {$group: {
+    _id:{city:"$city",gender:"$gender"},
+   avgSal:{$avg:"$salary"}
+  }
+  }
+]
+
+
+17.[{$match: {
+  role:"admin"
+}},
+ {$group: {
+    _id:"$age",
+   countUser:{$sum:1}
+  }
+  }
+]
+
+
+18.[{$match: {
+  skills:"C++"
+}},
+ {$group: {
+    _id:{role:"$role",city:"$city"},
+   countUser:{$sum:1}
+  }
+  }
+]
+
+
+19
+
+.
+20.[{$unwind:"$skills"},
+ {$group: {
+    _id:"$skills",
+   avgAge:{$avg:"$age"}
+  }
+  }
+]
+
+
+21.[{$addFields: {
+  countSkills: {$size:"$skills"},
+}},{$match: {
+  countSkills:{$gt:1}
+}},
+ {$group: {
+    _id:{role:"$role",city:"$city"},
+   countUser:{$sum:1}
+  }
+  }
+]
+
+
+22.[{$match: {
+  salary:{$lt:500000}
+}},
+ {$group: {
+    _id:{gender:"$gender",city:"$city"},
+   countUser:{$sum:1}
+  }
+  }
+]
+
+
+23.[{$match: {
+ role:"customer",
+}},
+ {$group: {
+    _id:"$age",
+   avgSal:{$avg:"$salary"}
+  }
+  }
+]
+
+
+24.[{$match: {
+ skills:"Kotlin",
+}},
+ {$group: {
+    _id:"$role",
+   avgSal:{$avg:"$salary"}
+  }
+  }
+]
+
+
+25.[{$match: {
+  role:"admin"
+}},
+ {$group: {
+    _id:"$city",
+   countUser:{$sum:1}
+  }
+  }
+]
+
+
+26.[{$match: {
+  $and:[{skills:"Java"},{skills:"Python"}]
+}},
+ {$group: {
+    _id:"$gender",
+   countUser:{$sum:1}
+  }
+  }
+]
+
+
+27.[{$match: {
+  role:"customer"
+}},
+ {$group: {
+    _id:"$age",
+   countUser:{$sum:1}
+  }
+  }
+]
+
+
+28.[{$match: {
+  skills:"DBMS"
+}},
+ {$group: {
+    _id:{role:"$role",city:"$city"},
+   countUser:{$sum:1}
+  }
+  }
+]
+
+
+29.[{$addFields: {
+  countSkills:{$size:"$skills"}
+}},{$match: {
+  countSkills:{$gt:3}
+}},
+ {$group: {
+    _id:"$gender",
+   countUser:{$sum:1}
+  }
+  }
+]
+
+
+30.[{$addFields: {
+  countSkills:{$size:"$skills"}
+}},{$match: {
+  salary:{$gt:1000000}
+}},{$group: {
+  _id: "$city",
+  avgSkills:{$avg:"$countSkills"}
+}}]
+
+
+31.[{$match: {
+  role:"admin"
+}},{$group: {
+  _id: "$age",
+  maxSal:{$max:"$salary"}
+}}]
+
+
+32.[{$match: {
+  skills:"JavaScript"
+}},{$group: {
+  _id: {role:"$role",city:"$city"},
+  totalSal:{$sum:"$salary"}
+}}]
+
+
+33.[{$match: {
+  role:"customer"
+}},{$group: {
+  _id: "$gender",
+  avgSal:{$avg:"$salary"}
+}}]
+
+
+34.[{$match: {
+  skills:"React"
+}},{$group: {
+  _id: "$city",
+  countUsers:{$sum:1}
+}}]
+
+
+35.[{$match: {
+  skills:"SQL"
+}},{$group: {
+  _id: "$age",
+  avgSal:{$avg:"$salary"}
+}}]
+
+
+36.[{$match: {
+  skills:"Django"
+}},{$group: {
+  _id: "$role",
+  countUsers:{$sum:1}
+}}]
+
+
+37.[{$addFields: {
+  countSkills: {$size:"$skills"}
+}},{$group: {
+  _id: "$gender",
+  maxSkills:{$max:"$countSkills"}
+}}]
+
+
+38.[{$match: {
+  skills:"Node.js"
+}},{$group: {
+  _id: "$city",
+  countUsers:{$sum:1}
+}}]
+
+
+39.[{$match: {
+  $and:[{skills:"HTML"},{skills:"CSS"}]
+}},{$group: {
+  _id: "$age",
+  countUsers:{$sum:1}
+}}]
+
+
+40.[{$addFields: {
+  countSkills:{$size:"$skills"}
+}},{$match: {
+  salary:{$gt:1000000}
+}},{$group: {
+  _id:{role:"$role",gender:"$gender"},
+  countSkills:{$avg:"$countSkills"}
+}}]
