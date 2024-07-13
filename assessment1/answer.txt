@@ -1,0 +1,26 @@
+Data transformation and aggregation
+$match
+$group
+$project
+Using the $limit stage
+$unwind
+Performs a join with another collection
+$group
+To sort documents
+$limit
+Dividing data into smaller, more manageable pieces
+Query router (mongos)
+A single, unified application
+Scalability and fault tolerance
+Each service manages its own data
+$gte
+Matches any of the values specified in an array
+$ne
+Using the $exists operator
+$exists: false
+Matches documents that contain an array field with at least one element that matches all the specified query criteria
+Using $gte and $lte operators
+$and
+$or
+$in
+To match documents where a field value matches a specified regular expression
